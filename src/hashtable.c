@@ -2,12 +2,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-results* createResults(char* nickname, double score, int id){
+results* createResults(char* nickname, double score){
 
     results* result = malloc(sizeof(result));
     result->nickname = nickname;
     result->score = score;
-    //result->id = id; to chyba zastapie hashfunction
     return result;
 }
 
