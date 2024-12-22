@@ -7,7 +7,8 @@
 
 
 HashTable* LoadResults(FILE *in);
-HashTable* sortResults(HashTable* table);
+results **sortResults(HashTable *table);
+int comp(const void *a, const void *b);
 
 
 

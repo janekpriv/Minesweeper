@@ -5,6 +5,7 @@ typedef struct results{
 
     char* nickname;
     double score;
+    //int id;
 
 } results;
 
@@ -15,8 +16,9 @@ typedef struct HashTable{
 } HashTable;
 
 int hashfunction(char* str);
-results* createResults(char* nickname, char* score);
+results* createResults(char* nickname, double score);
 HashTable* createHashTable(int size);
+void AddToTable(HashTable *table, results *result);
 char* searchHashTable(HashTable* table, char* key);
 
 
