@@ -3,8 +3,11 @@ CFLAGS = -Wall --pedantic
 SRC = src/*.c
 TARGET = bin/saper
 
-all:
+all: bin
 	$(CC) $(CFLAGS) $(SRC) -o $(TARGET)
 
-run:all
+bin:
+	mkdir -p bin
+
+run: all
 	$(TARGET)
