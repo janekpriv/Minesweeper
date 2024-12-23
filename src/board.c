@@ -4,8 +4,6 @@
 #include <stdio.h>
 
 
-
-
 void initialize_board_fields(Board *board) {
     // Initialize the board minefield
     board->minefield = (int **)malloc(board->rows * sizeof(int *));
@@ -55,12 +53,16 @@ void calculate_mine_counts(Board *board) {
             }
 
             int mine_count = 0;
-            for (int d = 0; d < 8; d++) {
-                int ni = i + directions[d][0];
-                int nj = j + directions[d][1];
+            for (int k = 0; k < 8; k++) {
+                int row_offset = i + directions[k][0];
+                int col_offset = j + directions[k][1];
 
-                if (ni >= 0 && ni < board->rows && nj >= 0 && nj < board->cols && board->minefield[ni][nj] == -1) {
-                    mine_count++;
+                if (
+                    row_offset >= 0 && row_offset < board->rows
+                    && col_offset >= 0 && col_offset < board->cols
+                    && board->minefield[row_offset][col_offset] == -1
+                    ){
+                    	mine_count++;
                 }
             }
 
@@ -76,11 +78,11 @@ void set_up_board(Board *board, int start_row, int start_col) {
     calculate_mine_counts(board);
 }
 
+// Print the player view of the board
 void print_board(const Board *board) {
-    // Print the player view of the board
     for (int i = 0; i < board->rows; i++) {
         for (int j = 0; j < board->cols; j++) {
-            printf("[ ");
+            printf("[");
             if (board->player_view[i][j] == 0) {
                 printf("?");
             } else if (board->player_view[i][j] == 1) {
@@ -88,7 +90,7 @@ void print_board(const Board *board) {
             } else if (board->player_view[i][j] == 2) {
                 printf("F");
             }
-            printf(" ]");
+            printf("] ");
         }
         printf("\n");
     }
@@ -102,4 +104,34 @@ void print_minefield(const Board *board) {
         }
         printf("\n");
     }
+}
+int is_within_bounds(const Board *board, int row, int col) {
+    return row >= 0 && row < board->rows && col >= 0 && col < board->cols;
+}
+
+void recursive_reveal(const Board *board, int row, int col){
+  	if(!is_within_bounds(board, row, col)) return;
+	if(board->player_view[row][col] == 1) return;
+
+    board->player_view[row][col] = 1;
+    if (board->minefield[row][col] > 0) return;
+
+  	for (int row_offset = -1; row_offset <= 1; row_offset++) {
+        for (int col_offset = -1; col_offset <= 1; col_offset++) {
+            // Skip the current field
+            if (row_offset == 0 && col_offset == 0) {
+                continue;
+            }
+            reveal_field(board, row + row_offset, col + col_offset);
+        }
+    }
+}
+
+int reveal_field(const Board *board, int row, int col){
+  	if(!is_within_bounds(board, row, col)) return 0;
+    if(board->player_view[row][col] == 1) return 0;
+    if(board->minefield[row][col] == -1) return -1;
+
+    recursive_reveal(board, row, col);
+    return 1;
 }
