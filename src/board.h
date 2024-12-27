@@ -31,10 +31,10 @@ void print_board(const Board *board);
 // Function to print the minefield for testing purposes
 void print_minefield(const Board *board);
 
-// Function to place a flag on the board
-void place_flag(Board *board, int row, int col);
-
 // Function to reveal a field on the board
 int reveal_field(const Board *board, int row, int col);
+
+// Function to place a flag on the board
+int place_flag(Board *board, int row, int col);
 
 #endif // BOARD_H

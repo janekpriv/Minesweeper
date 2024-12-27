@@ -135,3 +135,36 @@ int reveal_field(const Board *board, int row, int col){
     recursive_reveal(board, row, col);
     return 1;
 }
+
+/*
+* Function to check if the player has won the game
+* Returns 1 if the player has won, 0 otherwise
+* Checks if all the mines have been flagged
+ */
+int check_win(const Board *board){
+    for (int i = 0; i < board->rows; i++) {
+        for (int j = 0; j < board->cols; j++) {
+            if (board->minefield[i][j] == -1 && board->player_view[i][j] !=2) {
+                return 0;
+            }
+        }
+    }
+    return 1;
+}
+
+int place_flag(Board *board, int row, int col){
+  	if(!is_within_bounds(board, row, col)) return 0;
+    if(board->player_view[row][col] == 1) return 0;
+    if(board->placed_flags == board->num_mines && board->player_view[row][col] != 2) return 0;
+
+    if(board->player_view[row][col] == 2){
+        board->player_view[row][col] = 0;
+    } else {
+        board->player_view[row][col] = 2;
+        board->placed_flags++;
+    }
+    if(board->placed_flags == board->num_mines){
+        return check_win(board);
+    }
+    return 1;
+}
