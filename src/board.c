@@ -168,3 +168,15 @@ int place_flag(Board *board, int row, int col){
     }
     return 1;
 }
+
+int calculate_points(const Board *board){
+    int points = 0;
+    for (int i = 0; i < board->rows; i++) {
+        for (int j = 0; j < board->cols; j++) {
+            if (board->player_view[i][j] == 1) {
+                points++;
+            }
+        }
+    }
+    return points * board->difficulty;
+}

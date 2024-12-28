@@ -37,4 +37,7 @@ int reveal_field(const Board *board, int row, int col);
 // Function to place a flag on the board
 int place_flag(Board *board, int row, int col);
 
+// Function to calculate points based on revealed fields and difficulty
+int calculate_points(const Board *board);
+
 #endif // BOARD_H
