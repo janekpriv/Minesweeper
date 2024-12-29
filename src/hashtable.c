@@ -30,9 +30,3 @@ void AddToTable(HashTable* table, results* result){
     table->items[table->count] = result;
     table->count++;
 }
-
-char* searchHashTable(HashTable* table, char* key){
-
-
-
-}
