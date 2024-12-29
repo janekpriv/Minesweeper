@@ -3,6 +3,45 @@
 #include <time.h>
 #include <stdio.h>
 
+Board construct_board(int difficulty){
+	Board board;
+    board.difficulty = difficulty;
+    switch (difficulty) {
+        case 0:
+            board.rows = 9;
+            board.cols = 9;
+            board.num_mines = 10;
+            break;
+        case 1:
+            board.rows = 16;
+            board.cols = 16;
+            board.num_mines = 40;
+            break;
+        case 2:
+            board.rows = 16;
+            board.cols = 30;
+            board.num_mines = 99;
+            break;
+        case 3:
+            printf("Podaj ilość wierszy: ");
+            scanf("%d", &board.rows);
+            printf("Podaj ilość kolumn: ");
+            scanf("%d", &board.cols);
+            printf("Podaj ilość min: ");
+            scanf("%d", &board.num_mines);
+            if(board.num_mines >= board.rows * board.cols){
+                printf("Za dużo min\n");
+                exit(1);
+            }
+            break;
+        default:
+            printf("Niepoprawny poziom trudności\n");
+            exit(1);
+    }
+    board.placed_flags = 0;
+    return board;
+}
+
 
 void initialize_board_fields(Board *board) {
     // Initialize the board minefield
@@ -72,10 +111,12 @@ void calculate_mine_counts(Board *board) {
 }
 
 
-void set_up_board(Board *board, int start_row, int start_col) {
-    initialize_board_fields(board);
-    place_mines(board, start_row, start_col);
-    calculate_mine_counts(board);
+Board set_up_board(int difficulty, int start_row, int start_col) {
+  	Board board = construct_board(difficulty);
+    initialize_board_fields(&board);
+    place_mines(&board, start_row, start_col);
+    calculate_mine_counts(&board);
+    return board;
 }
 
 // Print the player view of the board

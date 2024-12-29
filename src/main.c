@@ -2,15 +2,10 @@
 #include <stdio.h>
 
 int main() {
-    Board board;
-    board.difficulty = 1;
-    board.rows = 10;
-    board.cols = 10;
-    board.num_mines = 10;
-    board.placed_flags = 0;
+
 
     // Generate the board with a safe starting point at (0, 0)
-    set_up_board(&board, 0, 0);
+    Board board = set_up_board(3, 0, 0);
 
     // Print the generated board
     print_board(&board);

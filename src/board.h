@@ -2,6 +2,12 @@
 #define BOARD_H
 
 typedef struct {
+  /**
+    0: Easy
+    1: Medium
+    2: Hard
+	3: Custom
+*/
     int difficulty;
     int rows;
     int cols;
@@ -23,7 +29,7 @@ typedef struct {
 } Board;
 
 // Function to generate the Minesweeper board
-void set_up_board(Board *board, int start_row, int start_col);
+Board set_up_board(int difficulty, int start_row, int start_col);
 
 // Function to print the Minesweeper board
 void print_board(const Board *board);
