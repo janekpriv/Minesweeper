@@ -3,6 +3,12 @@
 #include <time.h>
 #include <stdio.h>
 
+/**
+ * Constructs the Board object with parameters based on difficulty.
+ * Prompts the user for input if a custom difficulty is selected.
+ * @param difficulty - Game difficulty level
+ * @return Initialized Board object
+ */
 Board construct_board(int difficulty){
 	Board board;
     board.difficulty = difficulty;
@@ -42,20 +48,23 @@ Board construct_board(int difficulty){
     return board;
 }
 
-
+/**
+ * Allocates memory for the minefield and player view arrays.
+ * Initializes all fields to their default state.
+ * @param board - Pointer to the Board structure
+ */
 void initialize_board_fields(Board *board) {
-    // Initialize the board minefield
     board->minefield = (int **)malloc(board->rows * sizeof(int *));
     for (int i = 0; i < board->rows; i++) {
         board->minefield[i] = (int *)malloc(board->cols * sizeof(int));
     }
 
-    // Initialize the player view
     board->player_view = (int **)malloc(board->rows * sizeof(int *));
     for (int i = 0; i < board->rows; i++) {
         board->player_view[i] = (int *)malloc(board->cols * sizeof(int));
     }
 }
+
 
 void place_mines(Board *board, int start_row, int start_col) {
 
@@ -77,7 +86,11 @@ void place_mines(Board *board, int start_row, int start_col) {
     }
 }
 
-// Function to calculate the number of mines around each field
+/**
+ * Calculates the number of mines in the vicinity of each field.
+ * Updates the minefield with the corresponding counts.
+ * @param board - Pointer to the Board structure
+ */
 void calculate_mine_counts(Board *board) {
     int directions[8][2] = {
         {-1, -1}, {-1, 0}, {-1, 1},
@@ -119,7 +132,6 @@ Board set_up_board(int difficulty, int start_row, int start_col) {
     return board;
 }
 
-// Print the player view of the board
 void print_board(const Board *board) {
     for (int i = 0; i < board->rows; i++) {
         for (int j = 0; j < board->cols; j++) {
@@ -146,10 +158,26 @@ void print_minefield(const Board *board) {
         printf("\n");
     }
 }
+
+/**
+ * Checks if a given position is within the bounds of the board.
+ * @param board - Pointer to the Board structure
+ * @param row - Row index
+ * @param col - Column index
+ * @return 1 if within bounds, 0 otherwise
+ */
 int is_within_bounds(const Board *board, int row, int col) {
     return row >= 0 && row < board->rows && col >= 0 && col < board->cols;
 }
 
+
+/**
+ * Recursively reveals fields on the board.
+ * Stops revealing if a field has a mine count greater than 0.
+ * @param board - Pointer to the Board structure
+ * @param row - Row of the field to reveal
+ * @param col - Column of the field to reveal
+ */
 void recursive_reveal(const Board *board, int row, int col){
   	if(!is_within_bounds(board, row, col)) return;
 	if(board->player_view[row][col] == 1) return;
@@ -168,6 +196,8 @@ void recursive_reveal(const Board *board, int row, int col){
     }
 }
 
+
+
 int reveal_field(const Board *board, int row, int col){
   	if(!is_within_bounds(board, row, col)) return 0;
     if(board->player_view[row][col] == 1) return 0;
@@ -177,9 +207,10 @@ int reveal_field(const Board *board, int row, int col){
     return 1;
 }
 
+//TODO: determine returns for diffrent cases
 /*
 * Function to check if the player has won the game
-* Returns 1 if the player has won, 0 otherwise
+* Returns 2 if the player has won, 0 otherwise
 * Checks if all the mines have been flagged
  */
 int check_win(const Board *board){
@@ -190,8 +221,9 @@ int check_win(const Board *board){
             }
         }
     }
-    return 1;
+    return 2;
 }
+
 
 int place_flag(Board *board, int row, int col){
   	if(!is_within_bounds(board, row, col)) return 0;
@@ -210,6 +242,7 @@ int place_flag(Board *board, int row, int col){
     return 1;
 }
 
+
 int calculate_points(const Board *board){
     int points = 0;
     for (int i = 0; i < board->rows; i++) {
@@ -221,3 +254,4 @@ int calculate_points(const Board *board){
     }
     return points * board->difficulty;
 }
+//TODO: implement revealing all fields if player wins, to calculate the final score
