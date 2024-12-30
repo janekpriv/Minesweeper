@@ -5,7 +5,7 @@ typedef struct results{
 
     char* nickname;
     double score;
-    //int id;
+ 
 
 } results;
 
