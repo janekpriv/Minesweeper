@@ -3,6 +3,7 @@
 
 #include "scoreboard.h"
 #include "hashtable.h"
+#include "list.h"
 
 
 
@@ -10,7 +11,7 @@ int main(int argc, char** argv){
 
     double score;
     char* nickname = malloc(30*sizeof(char)); //dynamiczna alokacja do scanf
-    int maxPlayers = 10;
+    int maxPlayers = 100;
 
     FILE *in = fopen("scoreboard.txt","r");
     if(in==NULL){
@@ -21,8 +22,10 @@ int main(int argc, char** argv){
     printf("Podaj swoj nick\n"); 
     scanf("%s",nickname);
 
-    HashTable* table = createHashTable(maxPlayers);
-    printf("wygernerowano hashtablice");
+    results **resulsList = malloc(sizeof(results)*maxPlayers);
+
+    //HashTable* table = createHashTable(maxPlayers);
+    
 
      //renderowanie planszy
 
@@ -30,19 +33,17 @@ int main(int argc, char** argv){
     score = 129; //tymczasowo testowo
 
     //po otrzymaniu wyniku gracza
-    
     results *result = createResults(nickname, score);
-    printf("1\n");
-    updateScoreboard(result);
-    printf("2\n");
-    LoadResults(table);
-    printf("3\n");
-    sortResults(table);
-    printf("4\n");
-    results** resultList = sortResults(table);
-    printf("6\n");
-    printResults(resultList);
-    printf("zakonczyl dzialanie");
+    UpdateScoreboard(result);
+    int counter = loadResults(&resulsList); //zwraca ilosc graczy w pliku  
+    loadResults(&resulsList);
+    printf("counter: %d\n", counter);
+    SortResults(&resulsList, counter);
+    int top5 = PrintResults(resulsList, counter, result);
+    PrintResults(resulsList, counter, result);
+    if(!top5){
+        printf("%s, %g\n",result->nickname, result->score);
+    }
 
    
 
