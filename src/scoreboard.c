@@ -7,7 +7,7 @@
 /**
 * Reads the scores from the file and stores them in the scores array.
 */
-int load_scores(Score scores[], const char *filename) {
+static int load_scores(Score scores[], const char *filename) {
     FILE *file = fopen(filename, "r");
     int count = 0;
 
@@ -26,7 +26,7 @@ int load_scores(Score scores[], const char *filename) {
 /**
 * Compares two scores for sorting.
 */
-int comp(const void *a, const void *b) {
+static int comp(const void *a, const void *b) {
     const Score *scoreA = (const Score *)a;
     const Score *scoreB = (const Score *)b;
 
@@ -37,14 +37,14 @@ int comp(const void *a, const void *b) {
 /**
 * Sorts the scores in descending order.
 */
-void sort_scores(Score scores[], int count) {
+static void sort_scores(Score scores[], int count) {
     qsort(scores, count, sizeof(Score), comp);
 }
 
 /**
 * Saves the scores to the file.
 */
-void save_scores(Score scores[], int count, const char *filename) {
+static void save_scores(Score scores[], int count, const char *filename) {
     FILE *file = fopen(filename, "w");
     if (file == NULL) {
         perror("Nie można otworzyć pliku do zapisu");
