@@ -30,7 +30,6 @@ static int comp(const void *a, const void *b) {
     const Score *scoreA = (const Score *)a;
     const Score *scoreB = (const Score *)b;
 
-    // Sortuj malejąco według punktów
     return scoreB->score - scoreA->score;
 }
 
@@ -92,13 +91,13 @@ void display_scoreboard() {
     Score scores[MAX_SCORES];
     int count = 0;
 
-    while (fscanf(file, "%49s %d", scores[count].name, &scores[count].score) == 2 && count < MAX_SCORES) {
+    while (fscanf(file, "%49s %d", scores[count].name, &scores[count].score) == 2 && count < 5) {
         count++;
     }
     fclose(file);
 
     printf("=== Tablica wyników ===\n");
-    for (int i = 0; i < count; i++) {
+    for (int i = 0; i < 5; i++) {
         printf("%d. %s - %d\n", i + 1, scores[i].name, scores[i].score);
     }
 }

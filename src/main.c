@@ -23,8 +23,10 @@ int main() {
 //    add_score("John2", 53);
 //    add_score("John3", 48);
 //    add_score("John4", 180);
-    add_score("John5", 181);
-    add_score("John6", 1);
+    for(int i = 0; i < 100; i++){
+        add_score("John", i);
+    }
+	display_scoreboard();
 
 
 
