@@ -1,16 +1,23 @@
 #ifndef SCOREBOARD_H
 #define SCOREBOARD_H
-#include"hashtable.h"
-#include<stdio.h>
-#include<stdlib.h>
 
 
+#define MAX_SCORES 100
+#define SCOREBOARD_FILE "data/scoreboard.txt"
 
-HashTable* LoadResults(FILE *in);
-results **sortResults(HashTable *table);
-int comp(const void *a, const void *b);
+typedef struct {
+  char name[50];
+  int score;
+} Score;
 
+/**
+* Loads the scores from the file.
+*/
+int add_score(const char *name, int score);
 
+/**
+* Saves the scores to the file.
+*/
+void display_scoreboard();
 
-
-#endif
+#endif // SCOREBOARD_H
