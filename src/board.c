@@ -2,13 +2,22 @@
 #include <stdlib.h>
 #include <time.h>
 #include <stdio.h>
+#include "game.h"
 
 #define ANSI_COLOR_RED "\x1b[31m"
 #define ANSI_BLUE "\x1b[34m" 
 #define ANSI_GREEN "\x1b[32m"
 #define ANSI_CYAN "\x1b[36m"
 #define ANSI_MAGENTA "\x1b[35m" 
+#define ANSI_BLUE "\x1b[34m" 
+#define ANSI_GREEN "\x1b[32m"
+#define ANSI_CYAN "\x1b[36m"
+#define ANSI_MAGENTA "\x1b[35m" 
 #define ANSI_COLOR_RESET "\x1b[0m"
+char message[256];
+
+
+
 
 
 /**
@@ -148,7 +157,6 @@ Board init_board(int difficulty)
 void mine_board(Board *board, int start_row, int start_col)
 {
     place_mines(board, start_row, start_col);
-    printf("placed\n");
     calculate_mine_counts(board);
 }
 
@@ -169,8 +177,27 @@ void color_print(const Board *board, int row, int col){
     }
 }
 
+//based on number of mines near particular field color is updated
+
+void color_print(const Board *board, int row, int col){
+    if(board->minefield[row][col]==1){
+        print(ANSI_BLUE "%d" ANSI_COLOR_RESET,board->minefield[row][col]);
+    }
+    if(board->minefield[row][col]==2){
+    print(ANSI_GREEN "%d" ANSI_COLOR_RESET,board->minefield[row][col]);
+    }
+    if(board->minefield[row][col]==3){
+    print(ANSI_MAGENTA "%d" ANSI_COLOR_RESET,board->minefield[row][col]);
+    }
+    if(board->minefield[row][col]==3){
+    print(ANSI_CYAN "%d" ANSI_COLOR_RESET,board->minefield[row][col]);
+    }
+}
+
+
 void print_board(const Board *board)
 {
+    printf("%s\n", message);
     for (int i = 0; i < board->rows; i++)
     {
         for (int j = 0; j < board->cols; j++)
@@ -213,11 +240,14 @@ void print_minefield(const Board *board)
  * @param board - Pointer to the Board structure
  * @param row - Row index
  * @param col - Column index
- * @return 1 if within bounds, 0 otherwise
+ * @return STATUS_OK< if within bounds, STATUS_ERROR otherwise
  */
 static int is_within_bounds(const Board *board, int row, int col)
 {
-    return row >= 0 && row < board->rows && col >= 0 && col < board->cols;
+    if( row >= 0 && row < board->rows && col >= 0 && col < board->cols){
+        return STATUS_OK;
+    }
+    return STATUS_ERROR;
 }
 
 /**
@@ -247,29 +277,39 @@ static void recursive_reveal(const Board *board, int row, int col)
             {
                 continue;
             }
-            reveal_field(board, row + row_offset, col + col_offset);
+            recursive_reveal(board, row + row_offset, col + col_offset);
         }
     }
 }
 
 int reveal_field(const Board *board, int row, int col)
 {
-    if (!is_within_bounds(board, row, col))
-        return 0;
-    if (board->player_view[row][col] == 1)
-        return 0;
-    if (board->minefield[row][col] == -1)
-        return -1;
+    if (!is_within_bounds(board, row, col)){
+        set_message("Pole poza planszą");
+        return STATUS_ERROR;
+    }
+        
+    if (board->player_view[row][col] == 1){
+        set_message("Pole już odkryte");
+        return STATUS_ERROR;
+    }
+        
+    if (board->minefield[row][col] == -1){
+        return STATUS_LOSS;
+    }
 
     recursive_reveal(board, row, col);
-    return 1;
+    set_message("Odkryto pole");
+    return STATUS_OK;
 }
 
-// TODO: determine returns for different cases
-/*
+
+/**
  * Function to check if the player has won the game
- * Returns 2 if the player has won, 0 otherwise
  * Checks if all the mines have been flagged
+ * Checks if all the non-mine fields have been revealed
+ * @param board - Pointer to the Board structure
+ * @return STATUS_WIN if the player has won, STATUS_OK otherwise
  */
 static int check_win(const Board *board)
 {
@@ -279,21 +319,42 @@ static int check_win(const Board *board)
         {
             if (board->minefield[i][j] == -1 && board->player_view[i][j] != 2)
             {
-                return 0;
+                return STATUS_OK;
             }
         }
     }
-    return 2;
+
+    for (int i = 0; i < board->rows; i++)
+    {
+        for (int j = 0; j < board->cols; j++)
+        {
+            if (board->minefield[i][j] == -1 && board->player_view[i][j] == 0)
+            {
+                return STATUS_OK;
+            }
+        }
+    }
+
+    return STATUS_WIN;
 }
 
 int place_flag(Board *board, int row, int col)
 {
-    if (!is_within_bounds(board, row, col))
-        return 0;
-    if (board->player_view[row][col] == 1)
-        return 0;
-    if (board->placed_flags == board->num_mines && board->player_view[row][col] != 2)
-        return 0;
+    if (!is_within_bounds(board, row, col)){
+        set_message("Pole poza planszą");
+        return STATUS_ERROR;
+    }
+        
+    if (board->player_view[row][col] == 1){
+        set_message("Nie możesz postawić flagi na odkrytym polu");
+        return STATUS_ERROR;
+    }
+        
+    if (board->placed_flags == board->num_mines && board->player_view[row][col] != 2){
+        set_message("Nie możesz postawić więcej flag");
+        return STATUS_ERROR;
+    }
+        
 
     if (board->player_view[row][col] == 2)
     {
@@ -308,7 +369,8 @@ int place_flag(Board *board, int row, int col)
     {
         return check_win(board);
     }
-    return 1;
+    set_message("Postawiono flagę");
+    return STATUS_OK;
 }
 
 int calculate_points(const Board *board)
@@ -326,4 +388,10 @@ int calculate_points(const Board *board)
     }
     return points * board->difficulty;
 }
+
+void set_message(const char* msg)
+{
+    snprintf(message, sizeof(message), "%s", msg);
+}
+
 // TODO: implement revealing all fields if player wins, to calculate the final score

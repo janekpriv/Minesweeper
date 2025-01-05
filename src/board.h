@@ -1,6 +1,11 @@
 #ifndef BOARD_H
 #define BOARD_H
 
+#define STATUS_OK 1
+#define STATUS_LOSS -1
+#define STATUS_WIN 2
+#define STATUS_ERROR 0
+
 typedef struct
 {
   /**
@@ -51,7 +56,6 @@ void mine_board(Board *board, int start_row, int start_col);
  */
 void print_board(const Board *board);
 
-// TODO: delete after testing
 /**
  * Prints the entire minefield (for testing purposes).
  * Displays the mine positions and mine counts.
@@ -65,7 +69,7 @@ void print_minefield(const Board *board);
  * @param board - Pointer to the Board structure
  * @param row - Row of the field to reveal
  * @param col - Column of the field to reveal
- * @return -1 if a mine is revealed, 1 otherwise
+ * @return STATUS_LOSS if a mine is revealed, STATUS_OK otherwise
  */
 int reveal_field(const Board *board, int row, int col);
 
@@ -75,7 +79,7 @@ int reveal_field(const Board *board, int row, int col);
  * @param board - Pointer to the Board structure
  * @param row - Row of the field to flag
  * @param col - Column of the field to flag
- * @return 1 if successful, 0 if invalid, or 2 if the player wins by placing all flags correctly
+ * @return STATUS_OK if successful, STATUS_ERROR if invalid, or STATUS_WIN if the player wins by placing all flags correctly
  */
 int place_flag(Board *board, int row, int col);
 
@@ -85,5 +89,12 @@ int place_flag(Board *board, int row, int col);
  * @return Calculated score
  */
 int calculate_points(const Board *board);
+
+/**
+ * Sets the message to be displayed with on top of the board.
+ * @param msg - Message to display
+ */
+void set_message(const char* msg);
+
 
 #endif // BOARD_H

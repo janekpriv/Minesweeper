@@ -4,44 +4,58 @@
 #include "game.h"
 #include "board.h"
 
-static void get_user_input(Board *board)
+
+
+static void get_user_input(Board *board) 
 {
     printf("\e[1;1H\e[2J");
-    printf("%d\n", calculate_points(board));
+
+  
+    printf("Punkty: %d\n", calculate_points(board));
     print_board(board);
 
     char action;
-    int row, col;
+    int row, col, status;
+    printf("Podaj ruch (f x y lub r x y): ");
     scanf(" %c %d %d", &action, &row, &col);
+
+
+
+    
+
+
     row--;
     col--;
-    printf("action: %c, row: %d, col: %d\n", action, row, col);
 
-    if (action == 'r')
+    
+    if (action == 'r') 
     {
-        printf("revealed\n");
-        if (reveal_field(board, col, row) == -1)
-        {
-            printf("Przegrałeś\n");
-        }
-        else
-        {
+        status = reveal_field(board, row, col);
+    } 
+    else if (action == 'f') 
+    {
+        status = place_flag(board, row, col);
+    } 
+    else 
+    {
+        printf("Nieprawidłowa akcja\n");
+    }
 
-            get_user_input(board);
-        }
-    }
-    else if (action == 'f')
+    if (status == STATUS_WIN) 
     {
-        int tmp = place_flag(board, col, row);
-        if (tmp != 2)
-        {
-            get_user_input(board);
-        }
-    }
-    else
+        printf("Wygrałeś grę!\n");
+        return; 
+    } 
+    else if (status == STATUS_LOSS) 
     {
-        printf("Nie ma takiej akcji\n");
+        printf("Przegrałeś!\n");
+        return; 
+    } 
+    else if (status == STATUS_ERROR) 
+    {
+        printf("Nie można wykonać tej akcji. Spróbuj ponownie.\n");
     }
+    get_user_input(board);
 }
 
 void game_start()
