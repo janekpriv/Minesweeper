@@ -157,16 +157,16 @@ void mine_board(Board *board, int start_row, int start_col)
 
 void color_print(const Board *board, int row, int col){
     if(board->minefield[row][col]==1){
-        print(ANSI_BLUE "%d" ANSI_COLOR_RESET,board->minefield[row][col]);
+        printf(ANSI_BLUE "%d" ANSI_COLOR_RESET,board->minefield[row][col]);
     }
     if(board->minefield[row][col]==2){
-    print(ANSI_GREEN "%d" ANSI_COLOR_RESET,board->minefield[row][col]);
+    printf(ANSI_GREEN "%d" ANSI_COLOR_RESET,board->minefield[row][col]);
     }
     if(board->minefield[row][col]==3){
-    print(ANSI_MAGENTA "%d" ANSI_COLOR_RESET,board->minefield[row][col]);
+    printf(ANSI_MAGENTA "%d" ANSI_COLOR_RESET,board->minefield[row][col]);
     }
     if(board->minefield[row][col]==3){
-    print(ANSI_CYAN "%d" ANSI_COLOR_RESET,board->minefield[row][col]);
+    printf(ANSI_CYAN "%d" ANSI_COLOR_RESET,board->minefield[row][col]);
     }
 }
 
