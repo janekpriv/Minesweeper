@@ -9,15 +9,8 @@
 #define ANSI_GREEN "\x1b[32m"
 #define ANSI_CYAN "\x1b[36m"
 #define ANSI_MAGENTA "\x1b[35m" 
-#define ANSI_BLUE "\x1b[34m" 
-#define ANSI_GREEN "\x1b[32m"
-#define ANSI_CYAN "\x1b[36m"
-#define ANSI_MAGENTA "\x1b[35m" 
 #define ANSI_COLOR_RESET "\x1b[0m"
 char message[256];
-
-
-
 
 
 /**
@@ -158,23 +151,6 @@ void mine_board(Board *board, int start_row, int start_col)
 {
     place_mines(board, start_row, start_col);
     calculate_mine_counts(board);
-}
-
-//based on number of mines near particular field color is updated
-
-void color_print(const Board *board, int row, int col){
-    if(board->minefield[row][col]==1){
-        print(ANSI_BLUE "%d" ANSI_COLOR_RESET,board->minefield[row][col]);
-    }
-    if(board->minefield[row][col]==2){
-    print(ANSI_GREEN "%d" ANSI_COLOR_RESET,board->minefield[row][col]);
-    }
-    if(board->minefield[row][col]==3){
-    print(ANSI_MAGENTA "%d" ANSI_COLOR_RESET,board->minefield[row][col]);
-    }
-    if(board->minefield[row][col]==3){
-    print(ANSI_CYAN "%d" ANSI_COLOR_RESET,board->minefield[row][col]);
-    }
 }
 
 //based on number of mines near particular field color is updated

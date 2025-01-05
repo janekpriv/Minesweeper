@@ -19,11 +19,6 @@ static void get_user_input(Board *board)
     printf("Podaj ruch (f x y lub r x y): ");
     scanf(" %c %d %d", &action, &row, &col);
 
-
-
-    
-
-
     row--;
     col--;
 
