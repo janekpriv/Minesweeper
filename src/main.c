@@ -8,6 +8,7 @@
 //// - pokazywanie wyniki (co ruch i tabela na koncu, sa funkcje do tego) +
 // - testy działania całej aplikacji i ważniejszych funkcjonalności
 // - wczytywanie planszy i ruchow z pliku (getopt)
+// - zapisywanie wynikow do pliku
 
 int main()
 {
