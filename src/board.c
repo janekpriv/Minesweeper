@@ -4,7 +4,12 @@
 #include <stdio.h>
 
 #define ANSI_COLOR_RED "\x1b[31m"
+#define ANSI_BLUE "\x1b[34m" 
+#define ANSI_GREEN "\x1b[32m"
+#define ANSI_CYAN "\x1b[36m"
+#define ANSI_MAGENTA "\x1b[35m" 
 #define ANSI_COLOR_RESET "\x1b[0m"
+
 
 /**
  * Constructs the Board object with parameters based on difficulty.
@@ -147,6 +152,23 @@ void mine_board(Board *board, int start_row, int start_col)
     calculate_mine_counts(board);
 }
 
+//based on number of mines near particular field color is updated
+
+void color_print(const Board *board, int row, int col){
+    if(board->minefield[row][col]==1){
+        print(ANSI_BLUE "%d" ANSI_COLOR_RESET,board->minefield[row][col]);
+    }
+    if(board->minefield[row][col]==2){
+    print(ANSI_GREEN "%d" ANSI_COLOR_RESET,board->minefield[row][col]);
+    }
+    if(board->minefield[row][col]==3){
+    print(ANSI_MAGENTA "%d" ANSI_COLOR_RESET,board->minefield[row][col]);
+    }
+    if(board->minefield[row][col]==3){
+    print(ANSI_CYAN "%d" ANSI_COLOR_RESET,board->minefield[row][col]);
+    }
+}
+
 void print_board(const Board *board)
 {
     for (int i = 0; i < board->rows; i++)
@@ -160,8 +182,8 @@ void print_board(const Board *board)
             }
             else if (board->player_view[i][j] == 1)
             {
-                // TODO: function that changes color
-                printf("%d", board->minefield[i][j]);
+                color_print(board, i, j);
+                
             }
             else if (board->player_view[i][j] == 2)
             {
