@@ -1,18 +1,23 @@
 #include "board.h"
 #include "scoreboard.h"
 #include <stdio.h>
+#include <unistd.h>
 #include "game.h"
 // TODO:
 //  - wypisywanie planszy w terminalu, nowa plansza co ruch (kolory pol dodatkowo)
-////  - czytanie ruchow gracza (funkcje do odsłaniania pola i stawiania flagi sa) +
-//// - pokazywanie wyniki (co ruch i tabela na koncu, sa funkcje do tego) +
-// - testy działania całej aplikacji i ważniejszych funkcjonalności
+// - testy ważniejszych funkcjonalności
 // - wczytywanie planszy i ruchow z pliku (getopt)
 // - zapisywanie wynikow do pliku
 
-int main()
+int main(int argc, char** argv)
 {
+    
+
+
+
     game_start();
+
+
 
     display_scoreboard();
 

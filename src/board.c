@@ -61,12 +61,7 @@ static Board construct_board(int difficulty)
     return board;
 }
 
-/**
- * Allocates memory for the minefield and player view arrays.
- * Initializes all fields to their default state.
- * @param board - Pointer to the Board structure
- */
-static void initialize_board_fields(Board *board)
+void initialize_board_fields(Board *board)
 {
     board->minefield = (int **)malloc(board->rows * sizeof(int *));
     for (int i = 0; i < board->rows; i++)
@@ -156,6 +151,9 @@ void mine_board(Board *board, int start_row, int start_col)
 //based on number of mines near particular field color is updated
 
 void color_print(const Board *board, int row, int col){
+    if(board->minefield[row][col]==0){
+        printf("%d",board->minefield[row][col]);
+    }
     if(board->minefield[row][col]==1){
         printf(ANSI_BLUE "%d" ANSI_COLOR_RESET,board->minefield[row][col]);
     }
@@ -165,7 +163,7 @@ void color_print(const Board *board, int row, int col){
     if(board->minefield[row][col]==3){
     printf(ANSI_MAGENTA "%d" ANSI_COLOR_RESET,board->minefield[row][col]);
     }
-    if(board->minefield[row][col]==3){
+    if(board->minefield[row][col]==4){
     printf(ANSI_CYAN "%d" ANSI_COLOR_RESET,board->minefield[row][col]);
     }
 }

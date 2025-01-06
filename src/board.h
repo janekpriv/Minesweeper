@@ -27,12 +27,19 @@ typedef struct
   int **minefield;
 
   /**
-  0: Closed field    `
+  0: Closed field
   1: Opened field
   2: Flag
   */
   int **player_view;
 } Board;
+
+/**
+ * Allocates memory for the minefield and player view arrays.
+ * Initializes all fields to their default state.
+ * @param board - Pointer to the Board structure
+ */
+void initialize_board_fields(Board *board);
 
 /**
  * Sets up the Minesweeper board based on the chosen difficulty.

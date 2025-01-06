@@ -56,7 +56,7 @@ static void save_scores(Score scores[], int count, const char *filename) {
 }
 
 
-int add_score(const char *name, int score) {
+void add_score(const char *name, int score) {
   	// Use MAX_SCORES + 1 to temporarily hold the new score along with existing scores.
 	// This allows sorting and trimming the list to the top MAX_SCORES before saving.
     Score scores[MAX_SCORES + 1];
@@ -77,7 +77,7 @@ int add_score(const char *name, int score) {
 
     save_scores(scores, count, SCOREBOARD_FILE);
 
-    return 1;
+
 }
 
 

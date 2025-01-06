@@ -4,7 +4,53 @@
 #include "game.h"
 #include "board.h"
 
+// -f <plik> row col
 
+void test(char* filename, int row_count, int col_count){
+
+    char board_line[50];
+    char moves_line[50];
+
+    char board[50][50];
+    // char moves[20][10];
+
+
+    int counter;
+
+    FILE *in = fopen(in, "r");
+
+    // sprawdzic czy podany rozmiar planszy odpowiada jakiemuś poziomwi trudnosci
+    // init board
+   
+
+    // for w for (na wiersze i kolumny)
+    // w tym inicjujemy plansze
+    // sprawdzamy  czy jest mina(-1)
+
+    // ustawic poziom trudnosci w zaleznosci od row_count i col_count i num_mines
+
+    //tu powinnismy byc na linijce z ruchami (pod boardem)
+    //jezeli nie mamy to przesuwamy sie w pliku do linijki z ruchami (row_count+1)
+
+    // tu mamy boarda
+
+    //przechodzimy po ruchach 
+    //wyrozniamy ruchy z linijki 
+
+    //wywołujemy resztę get_user_input
+    
+
+    
+
+    while(counter>row_count){
+        fgets(board_line, sizeof(board_line), in);
+
+    }
+    while(fgets(moves_line, sizeof(moves_line), in)){
+
+    }
+
+}
 
 static void get_user_input(Board *board) 
 {

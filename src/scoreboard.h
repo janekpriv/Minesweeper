@@ -13,7 +13,7 @@ typedef struct {
 /**
 * Loads the scores from the file.
 */
-int add_score(const char *name, int score);
+void add_score(const char *name, int score);
 
 /**
 * Saves the scores to the file.
