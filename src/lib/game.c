@@ -85,11 +85,19 @@ static void get_user_input(Board *board)
     if (status == STATUS_WIN) 
     {
         printf("Wygrałeś grę!\n");
+        char name[50];
+        printf("Podaj swoje imie: ");
+        scanf("%s", &name);
+        add_score(name, calculate_points(board));
         return; 
     } 
     else if (status == STATUS_LOSS) 
     {
         printf("Przegrałeś!\n");
+        char name[50];
+        printf("Podaj swoje imie: ");
+        scanf("%s", &name);
+        add_score(name, calculate_points(board));
         return; 
     } 
     else if (status == STATUS_ERROR) 

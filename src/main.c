@@ -12,7 +12,9 @@ int main(int argc, char** argv)
 {
 
     game_start();
+    
     display_scoreboard();
+
 
     return 0;
 }
