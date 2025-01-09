@@ -1,4 +1,4 @@
-#include "scoreboard.h"
+#include "../include/scoreboard.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -81,11 +81,11 @@ void add_score(const char *name, int score) {
 }
 
 
-void display_scoreboard() {
+int display_scoreboard() {
     FILE *file = fopen(SCOREBOARD_FILE, "r");
     if (file == NULL) {
         perror("Nie można otworzyć pliku tablicy wyników");
-        return;
+        return 0;
     }
 
     Score scores[MAX_SCORES];
@@ -100,4 +100,5 @@ void display_scoreboard() {
     for (int i = 0; i < 5; i++) {
         printf("%d. %s - %d\n", i + 1, scores[i].name, scores[i].score);
     }
+    return 1;
 }

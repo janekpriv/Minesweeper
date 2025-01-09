@@ -1,8 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "game.h"
-#include "board.h"
+#include "../include/game.h"
+#include "../include/board.h"
 
 // -f <plik> row col
 
@@ -17,7 +17,7 @@ void test(char* filename, int row_count, int col_count){
 
     int counter;
 
-    FILE *in = fopen(in, "r");
+    // FILE *in = fopen(in, "r");
 
     // sprawdzic czy podany rozmiar planszy odpowiada jakiemuś poziomwi trudnosci
     // init board
@@ -42,13 +42,13 @@ void test(char* filename, int row_count, int col_count){
 
     
 
-    while(counter>row_count){
-        fgets(board_line, sizeof(board_line), in);
+    // while(counter>row_count){
+    //     fgets(board_line, sizeof(board_line), in);
 
-    }
-    while(fgets(moves_line, sizeof(moves_line), in)){
+    // }
+    // while(fgets(moves_line, sizeof(moves_line), in)){
 
-    }
+    // }
 
 }
 
