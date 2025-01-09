@@ -1,11 +1,15 @@
 CC = gcc
-CFLAGS = -Wall --pedantic
-SRC = src/*.c
+# CFLAGS = -Wall --pedantic
 TARGET = bin/saper
+TEST_TARGET = bin/tests
 
-all: prepare bin
-	$(CC) $(CFLAGS) $(SRC) -o $(TARGET)
+# Kompilacja głównej aplikacji
+all: prepare $(TARGET)
 
+$(TARGET): src/main.c src/lib/board.c src/lib/scoreboard.c src/lib/game.c
+	$(CC) $(CFLAGS) src/main.c src/lib/board.c src/lib/scoreboard.c src/lib/game.c -o $(TARGET) -I src/include
+
+# Przygotowanie katalogów
 prepare:
 	mkdir -p bin
 	mkdir -p data
@@ -13,12 +17,20 @@ prepare:
 	chmod 777 data
 	chmod 666 data/scoreboard.txt
 
-bin:
-	mkdir -p bin
+# Kompilacja testów
+$(TEST_TARGET): src/test/test_board.c src/lib/board.c src/lib/scoreboard.c src/lib/game.c
+	$(CC) $(CFLAGS) src/test/test_board.c src/lib/board.c src/lib/scoreboard.c src/lib/game.c -o $(TEST_TARGET) -I src/include
 
-run: all
+# Uruchamianie testów
+run-tests: $(TEST_TARGET)
+	$(TEST_TARGET)
+
+# Uruchamianie programu
+run: $(TARGET)
 	$(TARGET)
 
+# Czyszczenie plików binarnych i danych
 clean:
 	rm -rf bin
+clean-scores:
 	rm -rf data/scoreboard.txt

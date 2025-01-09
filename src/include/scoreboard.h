@@ -18,6 +18,6 @@ void add_score(const char *name, int score);
 /**
 * Saves the scores to the file.
 */
-void display_scoreboard();
+int display_scoreboard();
 
 #endif // SCOREBOARD_H

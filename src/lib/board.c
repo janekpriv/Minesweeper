@@ -1,8 +1,8 @@
-#include "board.h"
+#include "../include/board.h"
 #include <stdlib.h>
 #include <time.h>
 #include <stdio.h>
-#include "game.h"
+
 
 #define ANSI_COLOR_RED "\x1b[31m"
 #define ANSI_BLUE "\x1b[34m" 
