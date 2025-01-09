@@ -153,6 +153,7 @@ void mine_board(Board *board, int start_row, int start_col)
 void color_print(const Board *board, int row, int col){
     if(board->minefield[row][col]==0){
         printf("%d",board->minefield[row][col]);
+        // printf("  ");
     }
     if(board->minefield[row][col]==1){
         printf(ANSI_BLUE "%d" ANSI_COLOR_RESET,board->minefield[row][col]);
@@ -171,15 +172,26 @@ void color_print(const Board *board, int row, int col){
 
 void print_board(const Board *board)
 {
-    printf("%s\n", message);
+    printf("%s\n   ", message);
+    for(int i = 0; i < board->cols; i++){
+        printf(" %d", i+1);
+        
+    }
+    printf("\n   ");
+    for(int i = 0; i < board->cols; i++){
+        printf("__");
+        
+    }
+    printf("\n");
     for (int i = 0; i < board->rows; i++)
     {
+        printf("%d| ",i+1);
         for (int j = 0; j < board->cols; j++)
         {
-            printf("[");
+            printf(" ");
             if (board->player_view[i][j] == 0)
             {
-                printf("?");
+                printf(".");
             }
             else if (board->player_view[i][j] == 1)
             {
@@ -190,7 +202,7 @@ void print_board(const Board *board)
             {
                 printf(ANSI_COLOR_RED "F" ANSI_COLOR_RESET);
             }
-            printf("] ");
+
         }
         printf("\n");
     }
