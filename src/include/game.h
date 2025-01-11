@@ -5,5 +5,6 @@
 #include "scoreboard.h"
 
 void game_start();
+void test(char* filename);
 
 #endif // GAME_H
