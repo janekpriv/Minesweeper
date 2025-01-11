@@ -42,7 +42,7 @@ void test(char* filename){
     // }
 
 
-    FILE *in = fopen(filename, 'r');
+    FILE *in = fopen(filename, "r");
 
     char buffer[256];
 

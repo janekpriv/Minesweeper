@@ -14,7 +14,7 @@ int main(int argc, char** argv)
     int c_flag; // columns
     char* file_path = NULL;
 
-    while((options = getopt(argc, argv, "f")) =-1 ){
+    while((options = getopt(argc, argv, "f")) == -1 ){
         switch (options)
         {
         case 'f':

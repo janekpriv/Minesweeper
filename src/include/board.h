@@ -55,7 +55,7 @@ Board init_board(int difficulty);
  * @param col_count - number of columns in board
  * @param mine_count - number of mines in board
  */
-Board init_board_test(int difficulty, int row_count, int col_count, int mine_count)
+Board init_board_test(int difficulty, int row_count, int col_count, int mine_count);
 
 /**
  * Places mines randomly, ensuring the first move is safe.
