@@ -53,6 +53,10 @@ static Board construct_board(int difficulty)
             exit(1);
         }
         break;
+    case 5:
+        board.rows = 1; //tmp values, they are reasigned on init_board_test
+        board.cols = 1;
+        board.num_mines = 1;
     default:
         printf("Niepoprawny poziom trudności\n");
         exit(1);
@@ -60,6 +64,7 @@ static Board construct_board(int difficulty)
     board.placed_flags = 0;
     return board;
 }
+
 
 void initialize_board_fields(Board *board)
 {
@@ -141,6 +146,16 @@ Board init_board(int difficulty)
     initialize_board_fields(&board);
     return board;
 }
+
+Board init_board_test(int difficulty, int row_count, int col_count, int mine_count){
+    Board board = construct_board(difficulty);
+    board.rows = row_count;
+    board.cols = col_count;
+    board.num_mines = mine_count;
+    initialize_board_fields(&board);
+    return board;
+}
+
 
 void mine_board(Board *board, int start_row, int start_col)
 {
