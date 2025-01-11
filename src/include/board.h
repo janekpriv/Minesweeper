@@ -49,6 +49,15 @@ void initialize_board_fields(Board *board);
 Board init_board(int difficulty);
 
 /**
+ * Sets up the Minesweeper board for reading from file mode.
+ * @param difficulty - Game difficulty level
+ * @param row_count - number of rows in board
+ * @param col_count - number of columns in board
+ * @param mine_count - number of mines in board
+ */
+Board init_board_test(int difficulty, int row_count, int col_count, int mine_count)
+
+/**
  * Places mines randomly, ensuring the first move is safe.
  * @param board - Pointer to the Board structure
  * @param start_row - Row of the initial player's move
