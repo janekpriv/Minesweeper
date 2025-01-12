@@ -57,6 +57,7 @@ static Board construct_board(int difficulty)
         board.rows = 1; //tmp values, they are reasigned on init_board_test
         board.cols = 1;
         board.num_mines = 1;
+        break;
     default:
         printf("Niepoprawny poziom trudności\n");
         exit(1);
@@ -108,7 +109,7 @@ static void place_mines(Board *board, int start_row, int start_col)
  * Updates the minefield with the corresponding counts.
  * @param board - Pointer to the Board structure
  */
-static void calculate_mine_counts(Board *board)
+void calculate_mine_counts(Board *board)
 {
     int directions[8][2] = {
         {-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};
@@ -199,8 +200,12 @@ void print_board(const Board *board)
     }
     printf("\n");
     for (int i = 0; i < board->rows; i++)
-    {
+    {   
+        if(i+1<10){
+            printf(" %d| ",i+1);
+        }else{
         printf("%d| ",i+1);
+        }
         for (int j = 0; j < board->cols; j++)
         {
             printf(" ");
@@ -222,6 +227,43 @@ void print_board(const Board *board)
         printf("\n");
     }
 }
+
+void print_board_end(Board *board){
+    printf("%s\n   ", message);
+    for(int i = 0; i < board->cols; i++){
+        printf(" %d", i+1);
+        
+    }
+    printf("\n   ");
+    for(int i = 0; i < board->cols; i++){
+        printf("__");
+        
+    }
+    printf("\n");
+    for (int i = 0; i < board->rows; i++)
+    {   
+        if(i+1<10){
+            printf(" %d| ",i+1);
+        }else{
+        printf("%d| ",i+1);
+        }
+        for (int j = 0; j < board->cols; j++)
+        {
+            printf(" ");
+            if (board->minefield[i][j] == -1)
+            {
+                printf(ANSI_COLOR_RED "B" ANSI_COLOR_RESET);
+
+            }else{
+                color_print(board, i, j);
+            }
+            
+
+        }
+        printf("\n");
+    }
+}
+
 
 void print_minefield(const Board *board)
 {

@@ -48,6 +48,13 @@ void initialize_board_fields(Board *board);
  */
 Board init_board(int difficulty);
 
+
+/**
+ * Calculates tiles number.
+ * @param board - Pointer to the Board structure
+ */
+void calculate_mine_counts(Board *board);
+
 /**
  * Sets up the Minesweeper board for reading from file mode.
  * @param difficulty - Game difficulty level
@@ -71,6 +78,13 @@ void mine_board(Board *board, int start_row, int start_col);
  * @param board - Pointer to the Board structure
  */
 void print_board(const Board *board);
+
+/**
+ * Prints final view of the board.
+ * Displays all fields
+ * @param board - Pointer to the Board structure
+ */
+void print_board_end(Board *board);
 
 /**
  * Prints the entire minefield (for testing purposes).
