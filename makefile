@@ -22,7 +22,7 @@ $(TEST_TARGET): src/test/test_board.c src/lib/board.c src/lib/scoreboard.c src/l
 	$(CC) $(CFLAGS) src/test/test_board.c src/lib/board.c src/lib/scoreboard.c src/lib/game.c -o $(TEST_TARGET) -I src/include
 
 # Uruchamianie testów
-run-tests: $(TEST_TARGET)
+test: $(TEST_TARGET)
 	$(TEST_TARGET)
 
 # Uruchamianie programu

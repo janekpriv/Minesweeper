@@ -34,10 +34,10 @@ int main(int argc, char** argv)
             return STATUS_ERROR;
         }
     }
-    if (access(file_path, F_OK) == 0){
-        fprintf(stderr, "Sciezka do pliku nie istnieje\n");
-        return STATUS_ERROR;
-    }
+    // if (access(file_path, F_OK) == 0){
+    //     fprintf(stderr, "Sciezka do pliku nie istnieje\n");
+    //     return STATUS_ERROR;
+    // }
 
 
     if(file_path && f_flag){

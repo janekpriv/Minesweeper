@@ -168,34 +168,38 @@ void mine_board(Board *board, int start_row, int start_col)
 
 void color_print(const Board *board, int row, int col){
     if(board->minefield[row][col]==0){
-        printf("%d",board->minefield[row][col]);
+        printf(" %d",board->minefield[row][col]);
         // printf("  ");
     }
     if(board->minefield[row][col]==1){
-        printf(ANSI_BLUE "%d" ANSI_COLOR_RESET,board->minefield[row][col]);
+        printf(ANSI_BLUE " %d" ANSI_COLOR_RESET,board->minefield[row][col]);
     }
     if(board->minefield[row][col]==2){
-    printf(ANSI_GREEN "%d" ANSI_COLOR_RESET,board->minefield[row][col]);
+    printf(ANSI_GREEN " %d" ANSI_COLOR_RESET,board->minefield[row][col]);
     }
     if(board->minefield[row][col]==3){
-    printf(ANSI_MAGENTA "%d" ANSI_COLOR_RESET,board->minefield[row][col]);
+    printf(ANSI_MAGENTA " %d" ANSI_COLOR_RESET,board->minefield[row][col]);
     }
     if(board->minefield[row][col]==4){
-    printf(ANSI_CYAN "%d" ANSI_COLOR_RESET,board->minefield[row][col]);
+    printf(ANSI_CYAN " %d" ANSI_COLOR_RESET,board->minefield[row][col]);
     }
 }
 
 
 void print_board(const Board *board)
 {
-    printf("%s\n   ", message);
+    printf("%s\n    ", message);
     for(int i = 0; i < board->cols; i++){
-        printf(" %d", i+1);
+        if(i+1<10){
+            printf("  %d", i+1);
+        }else{
+            printf(" %d", i+1);
+        }
         
     }
     printf("\n   ");
     for(int i = 0; i < board->cols; i++){
-        printf("__");
+        printf("___");
         
     }
     printf("\n");
@@ -211,7 +215,7 @@ void print_board(const Board *board)
             printf(" ");
             if (board->player_view[i][j] == 0)
             {
-                printf(".");
+                printf(" .");
             }
             else if (board->player_view[i][j] == 1)
             {
@@ -220,7 +224,7 @@ void print_board(const Board *board)
             }
             else if (board->player_view[i][j] == 2)
             {
-                printf(ANSI_COLOR_RED "F" ANSI_COLOR_RESET);
+                printf(ANSI_COLOR_RED " F" ANSI_COLOR_RESET);
             }
 
         }
@@ -230,13 +234,17 @@ void print_board(const Board *board)
 
 void print_board_end(Board *board){
     printf("%s\n   ", message);
-    for(int i = 0; i < board->cols; i++){
-        printf(" %d", i+1);
+   for(int i = 0; i < board->cols; i++){
+        if(i+1<10){
+            printf("  %d", i+1);
+        }else{
+            printf(" %d", i+1);
+        }
         
     }
     printf("\n   ");
     for(int i = 0; i < board->cols; i++){
-        printf("__");
+        printf("___");
         
     }
     printf("\n");
@@ -252,7 +260,7 @@ void print_board_end(Board *board){
             printf(" ");
             if (board->minefield[i][j] == -1)
             {
-                printf(ANSI_COLOR_RED "B" ANSI_COLOR_RESET);
+                printf(ANSI_COLOR_RED " B" ANSI_COLOR_RESET);
 
             }else{
                 color_print(board, i, j);
@@ -436,5 +444,3 @@ void set_message(const char* msg)
 {
     snprintf(message, sizeof(message), "%s", msg);
 }
-
-// TODO: implement revealing all fields if player wins, to calculate the final score

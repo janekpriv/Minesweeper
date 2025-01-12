@@ -13,7 +13,5 @@
 		printf("Test passed\n"); \
 	}
 
-# define TEST(name) \
-	void name(void)
 
 #endif // TEST_FRAMEWORK_H

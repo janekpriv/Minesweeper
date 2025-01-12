@@ -85,7 +85,9 @@ void test(char* filename){
     int row, col, status;
 
     rewind(in);
-    
+    int correct_moves = 0;
+    int incorrect_moves = 0;
+    int is_win = 0;
     int counter=0;
     while(fgets(buffer, sizeof(buffer), in)!= NULL){
         counter++;
@@ -105,41 +107,49 @@ void test(char* filename){
         if (action == 'r') 
         {
             status = reveal_field(&board, row, col);
+
         } 
         else if (action == 'f') 
         {
             status = place_flag(&board, row, col);
+
         } 
         else 
         {
-            printf("Nieprawidłowa akcja\n");
-            printf("Napraw plik i spróbuj ponownie");
-            break;
+            incorrect_moves++;
+            continue;
         }
+        
 
         if (status == STATUS_WIN) 
         {   
             print_board(&board);
             print_board_end(&board);
             printf("Wygrałeś grę!\n");
-            return; 
+            is_win=1;
+            
+            break; 
         } 
         else if (status == STATUS_LOSS) 
         {
             print_board(&board);
             print_board_end(&board);
             printf("Przegrałeś!\n");
-            return; 
+      
+            break; 
         } 
         else if (status == STATUS_ERROR) 
         {
-            printf("Nie można wykonać tej akcji. Błąd w pliku\n");
-            printf("Napraw plik i spróbuj ponownie");
-            return;
+            incorrect_moves++;
+        }else{
+            correct_moves++;
         }
 
     }
-    
+    printf("---Podsumowanie testu---\n");
+    printf("Poprawne ruchy: %d\n", correct_moves);
+    printf("Niepoprawne ruchy: %d\n", incorrect_moves);
+    printf("Wygrana %d\n", is_win);
 
 }
 
@@ -207,21 +217,36 @@ void game_start()
     int row, col;
     int difficulty;
     printf("Wybierz poziom trudnosci:\n");
-    printf("1 - latwy\n 2 - sredni\n 3 - trudny\n0 - wlasny\n");
+    printf("1 - latwy\n2 - sredni\n3 - trudny\n0 - wlasny\n");
     scanf("%d", &difficulty);
 
     Board board = init_board(difficulty);
     print_board(&board);
 
-    printf("Odkryj pierwsze pole: ");
+   
+    
 
-    scanf("%d %d", &row, &col);
+    
+    int is_within_bounds = 1;
+    while(is_within_bounds){
+        printf("Odkryj pierwsze pole: ");
+        scanf("%d %d", &row, &col);
+
+        if(!(row > board.rows || col > board.cols)){
+            is_within_bounds=0;
+        }else{
+            printf("Pole poza planszą\n");
+        }
+
+    }
+    
+
     printf("row: %d, col: %d\n", row, col);
     row--;
     col--;
 
-    mine_board(&board, col, row);
-    reveal_field(&board, col, row);
+    mine_board(&board, row, col);
+    reveal_field(&board, row, col);
 
     get_user_input(&board);
 }
