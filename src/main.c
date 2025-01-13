@@ -3,9 +3,6 @@
 #include <getopt.h>
 #include "./include/game.h"
 #include "./include/scoreboard.h"
-// TODO:
-//  - wypisywanie planszy w terminalu, nowa plansza co ruch (kolory pol dodatkowo)
-// - wczytywanie planszy i ruchow z pliku (getopt)
 
 int main(int argc, char** argv)
 {
@@ -34,11 +31,6 @@ int main(int argc, char** argv)
             return STATUS_ERROR;
         }
     }
-    // if (access(file_path, F_OK) == 0){
-    //     fprintf(stderr, "Sciezka do pliku nie istnieje\n");
-    //     return STATUS_ERROR;
-    // }
-
 
     if(file_path && f_flag){
         test(file_path);

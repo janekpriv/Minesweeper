@@ -12,7 +12,7 @@ typedef struct
     1: Easy
     2: Medium
     3: Hard
-  4: Custom
+  0: Custom
 */
   int difficulty;
   int rows;
@@ -86,12 +86,6 @@ void print_board(const Board *board);
  */
 void print_board_end(Board *board);
 
-/**
- * Prints the entire minefield (for testing purposes).
- * Displays the mine positions and mine counts.
- * @param board - Pointer to the Board structure
- */
-void print_minefield(const Board *board);
 
 /**
  * Reveals a field on the board.

@@ -222,10 +222,6 @@ void game_start()
 
     Board board = init_board(difficulty);
     print_board(&board);
-
-   
-    
-
     
     int is_within_bounds = 1;
     while(is_within_bounds){
@@ -240,7 +236,6 @@ void game_start()
 
     }
     
-
     printf("row: %d, col: %d\n", row, col);
     row--;
     col--;

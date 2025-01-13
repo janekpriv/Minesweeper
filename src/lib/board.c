@@ -166,7 +166,7 @@ void mine_board(Board *board, int start_row, int start_col)
 
 //based on number of mines near particular field color is updated
 
-void color_print(const Board *board, int row, int col){
+static void color_print(const Board *board, int row, int col){
     if(board->minefield[row][col]==0){
         printf(" %d",board->minefield[row][col]);
         // printf("  ");
@@ -273,18 +273,7 @@ void print_board_end(Board *board){
 }
 
 
-void print_minefield(const Board *board)
-{
-    // Print the board
-    for (int i = 0; i < board->rows; i++)
-    {
-        for (int j = 0; j < board->cols; j++)
-        {
-            printf("%d ", board->minefield[i][j]);
-        }
-        printf("\n");
-    }
-}
+
 
 /**
  * Checks if a given position is within the bounds of the board.
