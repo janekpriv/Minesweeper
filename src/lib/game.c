@@ -187,7 +187,7 @@ static void get_user_input(Board *board)
         printf("Wygrałeś grę!\n");
         char name[50];
         printf("Podaj swoje imie: ");
-        scanf("%s", &name);
+        scanf("%s", name);
         add_score(name, calculate_points(board));
         return; 
     } 
@@ -197,7 +197,7 @@ static void get_user_input(Board *board)
         printf("Przegrałeś!\n");
         char name[50];
         printf("Podaj swoje imie: ");
-        scanf("%s", &name);
+        scanf("%s", name);
         add_score(name, calculate_points(board));
         return; 
     } 

@@ -5,10 +5,17 @@
 
 
 #define ANSI_COLOR_RED "\x1b[31m"
+
 #define ANSI_BLUE "\x1b[34m" 
 #define ANSI_GREEN "\x1b[32m"
 #define ANSI_CYAN "\x1b[36m"
 #define ANSI_MAGENTA "\x1b[35m" 
+
+#define ANSI_YELLOW "\x1b[33m"
+#define ANSI_PURPLE "\x1b[35m"
+#define ANSI_PINK "\x1b[35m"
+#define ANSI_ORANGE "\x1b[35m"
+
 #define ANSI_COLOR_RESET "\x1b[0m"
 char message[256];
 
@@ -182,6 +189,18 @@ static void color_print(const Board *board, int row, int col){
     }
     if(board->minefield[row][col]==4){
     printf(ANSI_CYAN " %d" ANSI_COLOR_RESET,board->minefield[row][col]);
+    }
+    if(board->minefield[row][col]==5){
+    printf(ANSI_YELLOW " %d" ANSI_COLOR_RESET,board->minefield[row][col]);
+    }
+    if(board->minefield[row][col]==6){
+    printf(ANSI_PURPLE " %d" ANSI_COLOR_RESET,board->minefield[row][col]);
+    }
+    if(board->minefield[row][col]==7){
+    printf(ANSI_PINK " %d" ANSI_COLOR_RESET,board->minefield[row][col]);
+    }
+    if(board->minefield[row][col]==8){
+    printf(ANSI_ORANGE " %d" ANSI_COLOR_RESET,board->minefield[row][col]);
     }
 }
 
@@ -399,6 +418,7 @@ int place_flag(Board *board, int row, int col)
     if (board->player_view[row][col] == 2)
     {
         board->player_view[row][col] = 0;
+        board->placed_flags--;
     }
     else
     {
