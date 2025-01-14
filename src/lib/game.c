@@ -20,10 +20,7 @@ void test(char* filename){
     int arr_counter = -1;
     
 
-    //read from file, number of colums, rows and mines marked as (1)
-
-
-
+    //read from file, number of columns, rows and mines marked as (1)
     while (fgets(buffer, sizeof(buffer), in)){
         arr_counter =0;
         if(buffer[0]!='1' && buffer[0]!='0'){
@@ -46,7 +43,7 @@ void test(char* filename){
     number_of_columns = number_of_tiles/number_of_rows;
 
 
-    // decide if board in loaded file has predefinded difficulty  
+    // decide if board in loaded file has predefined difficulty  
     int difficulty;
     switch (number_of_rows){
         case 9:

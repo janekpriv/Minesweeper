@@ -11,12 +11,14 @@ typedef struct {
 } Score;
 
 /**
-* Loads the scores from the file.
+* Adds a score to the scoreboard.
+* @param name - Name of the player
+* @param score - Score of the player
 */
 void add_score(const char *name, int score);
 
 /**
-* Saves the scores to the file.
+* Shows the scoreboard.
 */
 int display_scoreboard();
 
