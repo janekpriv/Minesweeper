@@ -26,7 +26,7 @@ test: $(TEST_TARGET)
 	$(TEST_TARGET)
 
 # Uruchamianie programu
-run: $(TARGET)
+run: all $(TARGET)
 	$(TARGET)
 
 # Czyszczenie plików binarnych i danych
