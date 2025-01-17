@@ -22,11 +22,11 @@ $(TEST_TARGET): src/test/test_board.c src/lib/board.c src/lib/scoreboard.c src/l
 	$(CC) $(CFLAGS) src/test/test_board.c src/lib/board.c src/lib/scoreboard.c src/lib/game.c -o $(TEST_TARGET) -I src/include
 
 # Uruchamianie testów
-test: $(TEST_TARGET)
+run-tests: $(TEST_TARGET)
 	$(TEST_TARGET)
 
 # Uruchamianie programu
-run-tests: all $(TARGET)
+test: all $(TARGET)
 	$(TARGET)
 
 # Czyszczenie plików binarnych i danych
