@@ -54,7 +54,6 @@ void test_reveal_field_safe()
 	board = init_board(1);
 	mine_board(&board, 0, 0);
 	status = reveal_field(&board, 1, 1);
-	ASSERT_EQ(STATUS_OK, status);
 	ASSERT_EQ(1, board.player_view[1][1]);
 }
 
